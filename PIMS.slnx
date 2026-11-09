@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="PIMS.API/PIMS.API.csproj" />
+  <Project Path="PIMS.Application/PIMS.Application.csproj" />
+  <Project Path="PIMS.Domain/PIMS.Domain.csproj" />
+  <Project Path="PIMS.Infrastructure/PIMS.Infrastructure.csproj" />
+  <Project Path="PIMS.Tests/PIMS.Tests.csproj" />
+</Solution>

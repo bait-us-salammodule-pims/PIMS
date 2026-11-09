@@ -1,0 +1,6 @@
+@PIMS.API_HostAddress = http://localhost:5204
+
+GET {{PIMS.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
