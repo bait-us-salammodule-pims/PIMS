@@ -63,8 +63,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
             const isGroup = !!item.children && item.children.length > 0;
             const isOpen = !!openGroups[item.id];
             const active = isGroupActive(item);
+            const accessibleChildren = item.children?.filter(
+              (child) => !child.permission || hasPermission(child.permission)
+            ) ?? [];
 
             if (!isGroup) {
+              if (!hasAccess) return null;
               return (
                 <NavLink
                   key={item.id}
@@ -111,9 +115,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                 </button>
 
                 {/* Submenu links */}
-                {!collapsed && isOpen && (
+                {!collapsed && isOpen && accessibleChildren.length > 0 && (
                   <div className="sub-nav-list">
-                    {item.children?.map((child) => {
+                    {accessibleChildren.map((child) => {
                       const childAccess = !child.permission || hasPermission(child.permission);
                       const isChildActive = location.pathname.startsWith(child.path);
 
