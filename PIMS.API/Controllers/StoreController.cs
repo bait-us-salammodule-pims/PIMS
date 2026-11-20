@@ -17,6 +17,7 @@ public class StoreController : ControllerBase
 
     // GET: api/stores
     [HttpGet]
+    [HasPermission("StoreView")]
     public async Task<ActionResult<IReadOnlyList<StoreResponse>>> GetAll(
         [FromQuery] bool includeInactive = false,
         CancellationToken cancellationToken = default)
@@ -30,6 +31,7 @@ public class StoreController : ControllerBase
 
     // GET: api/stores/{id}
     [HttpGet("{id:int}")]
+    [HasPermission("StoreView")]
     public async Task<ActionResult<StoreResponse>> GetById(
         int id,
         CancellationToken cancellationToken = default)
@@ -49,6 +51,7 @@ public class StoreController : ControllerBase
 
     // POST: api/stores
     [HttpPost]
+    [HasPermission("StoreManage")]
     public async Task<ActionResult<StoreResponse>> Create(
         [FromBody] CreateStoreRequest request,
         CancellationToken cancellationToken = default)
@@ -82,6 +85,7 @@ public class StoreController : ControllerBase
 
     // PUT: api/stores/{id}
     [HttpPut("{id:int}")]
+    [HasPermission("StoreManage")]
     public async Task<ActionResult<StoreResponse>> Update(
         int id,
         [FromBody] UpdateStoreRequest request,
@@ -121,6 +125,7 @@ public class StoreController : ControllerBase
 
     // PATCH: api/stores/{id}/deactivate
     [HttpPatch("{id:int}/deactivate")]
+    [HasPermission("StoreManage")]
     public async Task<IActionResult> Deactivate(
         int id,
         CancellationToken cancellationToken = default)
@@ -154,6 +159,7 @@ public class StoreController : ControllerBase
 
     // GET: api/stores/{storeId}/locations
     [HttpGet("{storeId:int}/locations")]
+    [HasPermission("StoreView")]
     public async Task<ActionResult<IReadOnlyList<StoreLocationResponse>>> GetLocations(
         int storeId,
         [FromQuery] bool includeInactive = false,
@@ -179,6 +185,7 @@ public class StoreController : ControllerBase
 
     // POST: api/stores/{storeId}/locations
     [HttpPost("{storeId:int}/locations")]
+    [HasPermission("StoreManage")]
     public async Task<ActionResult<StoreLocationResponse>> CreateLocation(
         int storeId,
         [FromBody] CreateStoreLocationRequest request,
@@ -218,6 +225,7 @@ public class StoreController : ControllerBase
 
     // PUT: api/stores/{storeId}/locations/{locationId}
     [HttpPut("{storeId:int}/locations/{locationId:int}")]
+    [HasPermission("StoreManage")]
     public async Task<ActionResult<StoreLocationResponse>> UpdateLocation(
         int storeId,
         int locationId,
@@ -259,6 +267,7 @@ public class StoreController : ControllerBase
 
     // PATCH: api/stores/{storeId}/locations/{locationId}/deactivate
     [HttpPatch("{storeId:int}/locations/{locationId:int}/deactivate")]
+    [HasPermission("StoreManage")]
     public async Task<IActionResult> DeactivateLocation(
         int storeId,
         int locationId,
