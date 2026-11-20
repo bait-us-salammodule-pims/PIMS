@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Authorization;
+using PIMS.API.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PIMS.Application.DTOs.Procurement;
 using PIMS.Application.Interfaces.Procurement;
@@ -55,6 +56,7 @@ public sealed class PurchaseRequestsController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
+    [HasPermission("PurchaseRequestUpdate")]
     public async Task<ActionResult<PurchaseRequestResponseDto>> Update(
         int id,
         [FromBody] UpdatePurchaseRequestDto request,
@@ -65,6 +67,7 @@ public sealed class PurchaseRequestsController : ControllerBase
     }
 
     [HttpPost("{id:int}/items")]
+    [HasPermission("PurchaseRequestUpdate")]
     public async Task<ActionResult<PurchaseRequestItemResponseDto>> AddItem(
         int id,
         [FromBody] CreatePurchaseRequestItemDto request,
@@ -75,6 +78,7 @@ public sealed class PurchaseRequestsController : ControllerBase
     }
 
     [HttpPut("{id:int}/items/{itemId:int}")]
+    [HasPermission("PurchaseRequestUpdate")]
     public async Task<ActionResult<PurchaseRequestItemResponseDto>> UpdateItem(
         int id,
         int itemId,
@@ -88,6 +92,7 @@ public sealed class PurchaseRequestsController : ControllerBase
     }
 
     [HttpDelete("{id:int}/items/{itemId:int}")]
+    [HasPermission("PurchaseRequestUpdate")]
     public async Task<IActionResult> RemoveItem(
         int id,
         int itemId,
@@ -98,6 +103,7 @@ public sealed class PurchaseRequestsController : ControllerBase
     }
 
     [HttpPost("{id:int}/submit")]
+    [HasPermission("PurchaseRequestSubmit")]
     public async Task<ActionResult<PurchaseRequestResponseDto>> Submit(
         int id,
         CancellationToken cancellationToken)
@@ -107,6 +113,7 @@ public sealed class PurchaseRequestsController : ControllerBase
     }
 
     [HttpPost("{id:int}/start-review")]
+    [HasPermission("ApprovalView")]
     public async Task<ActionResult<PurchaseRequestResponseDto>> StartReview(
         int id,
         CancellationToken cancellationToken)
@@ -118,6 +125,7 @@ public sealed class PurchaseRequestsController : ControllerBase
     }
 
     [HttpPost("{id:int}/approve")]
+    [HasPermission("ApprovalApprove")]
     public async Task<ActionResult<PurchaseRequestResponseDto>> Approve(
         int id,
         CancellationToken cancellationToken)
@@ -129,6 +137,7 @@ public sealed class PurchaseRequestsController : ControllerBase
     }
 
     [HttpPost("{id:int}/reject")]
+    [HasPermission("ApprovalReject")]
     public async Task<ActionResult<PurchaseRequestResponseDto>> Reject(
         int id,
         CancellationToken cancellationToken)
@@ -140,6 +149,7 @@ public sealed class PurchaseRequestsController : ControllerBase
     }
 
     [HttpPost("{id:int}/cancel")]
+    [HasPermission("PurchaseRequestUpdate")]
     public async Task<ActionResult<PurchaseRequestResponseDto>> Cancel(
         int id,
         CancellationToken cancellationToken)
