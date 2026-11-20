@@ -374,7 +374,7 @@ export const QuotationsPage: React.FC = () => {
     const payload: CreateQuotationRequestDto = {
       quotationNumber: createForm.quotationNumber.trim().toUpperCase(),
       purchaseRequestId: Number(createForm.purchaseRequestId),
-      closingDate: new Date(createForm.closingDate).toISOString(),
+      closingDate: new Date(`${createForm.closingDate}T23:59:59`).toISOString(),
       notes: createForm.notes.trim() || null,
     };
 
@@ -408,7 +408,7 @@ export const QuotationsPage: React.FC = () => {
     setErrorMessage(null);
 
     const payload: UpdateQuotationRequestDto = {
-      closingDate: new Date(editForm.closingDate).toISOString(),
+      closingDate: new Date(`${editForm.closingDate}T23:59:59`).toISOString(),
       notes: editForm.notes.trim() || null,
     };
 
