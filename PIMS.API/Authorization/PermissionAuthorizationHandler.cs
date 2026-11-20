@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 
 namespace PIMS.API.Authorization;
@@ -8,6 +9,12 @@ public sealed class PermissionAuthorizationHandler : AuthorizationHandler<Permis
         AuthorizationHandlerContext context,
         PermissionRequirement requirement)
     {
+        if (context.User.IsInRole("SuperAdmin"))
+        {
+            context.Succeed(requirement);
+            return Task.CompletedTask;
+        }
+
         var hasPermission = context.User.Claims.Any(claim =>
             claim.Type == "permission" &&
             string.Equals(
