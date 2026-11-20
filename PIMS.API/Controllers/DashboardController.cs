@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Authorization;
+using PIMS.API.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PIMS.Application.Interfaces.Dashboard;
 
@@ -18,6 +19,7 @@ public sealed class DashboardController : ControllerBase
     }
 
     [HttpGet("summary")]
+    [HasPermission("DashboardView")]
     public async Task<IActionResult> GetSummary(
         CancellationToken cancellationToken)
     {
