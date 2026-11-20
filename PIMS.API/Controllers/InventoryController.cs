@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Authorization;
+using PIMS.API.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PIMS.Application.DTOs.Inventory;
 using PIMS.Application.Interfaces.Inventory;
@@ -19,6 +20,7 @@ public sealed class InventoryController : ControllerBase
     }
 
     [HttpGet("balances")]
+    [HasPermission("InventoryView")]
     public async Task<ActionResult<IReadOnlyList<InventoryBalanceResponseDto>>> GetBalances(
         [FromQuery] int? storeId,
         [FromQuery] int? itemId,
@@ -29,6 +31,7 @@ public sealed class InventoryController : ControllerBase
     }
 
     [HttpGet("balances/{storeId:int}/{itemId:int}")]
+    [HasPermission("InventoryView")]
     public async Task<ActionResult<InventoryBalanceResponseDto>> GetBalance(
         int storeId,
         int itemId,
@@ -44,6 +47,7 @@ public sealed class InventoryController : ControllerBase
     }
 
     [HttpGet("movements")]
+    [HasPermission("InventoryView")]
     public async Task<ActionResult<IReadOnlyList<StockMovementResponseDto>>> GetMovements(
         [FromQuery] int? storeId,
         [FromQuery] int? itemId,
@@ -54,6 +58,7 @@ public sealed class InventoryController : ControllerBase
     }
 
     [HttpPost("adjustments/increase")]
+    [HasPermission("InventoryAdjustment")]
     public async Task<ActionResult<StockMovementResponseDto>> IncreaseStock(
         [FromBody] StockAdjustmentDto request,
         CancellationToken cancellationToken)
@@ -63,6 +68,7 @@ public sealed class InventoryController : ControllerBase
     }
 
     [HttpPost("adjustments/decrease")]
+    [HasPermission("InventoryAdjustment")]
     public async Task<ActionResult<StockMovementResponseDto>> DecreaseStock(
         [FromBody] StockAdjustmentDto request,
         CancellationToken cancellationToken)
@@ -72,6 +78,7 @@ public sealed class InventoryController : ControllerBase
     }
 
     [HttpPost("reservations")]
+    [HasPermission("InventoryIssue")]
     public async Task<ActionResult<InventoryBalanceResponseDto>> ReserveStock(
         [FromBody] StockReservationDto request,
         CancellationToken cancellationToken)
@@ -81,6 +88,7 @@ public sealed class InventoryController : ControllerBase
     }
 
     [HttpPost("reservations/release")]
+    [HasPermission("InventoryIssue")]
     public async Task<ActionResult<InventoryBalanceResponseDto>> ReleaseReservation(
         [FromBody] StockReservationDto request,
         CancellationToken cancellationToken)
