@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Authorization;
+using PIMS.API.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PIMS.Application.DTOs.Procurement;
 using PIMS.Application.Interfaces.Procurement;
@@ -19,6 +20,7 @@ public sealed class GoodsReceiptsController : ControllerBase
     }
 
     [HttpGet]
+    [HasPermission("ReceivingView")]
     public async Task<ActionResult<IReadOnlyList<GoodsReceiptResponseDto>>> GetAll(
         CancellationToken cancellationToken)
     {
@@ -27,6 +29,7 @@ public sealed class GoodsReceiptsController : ControllerBase
     }
 
     [HttpGet("{id:int}")]
+    [HasPermission("ReceivingView")]
     public async Task<ActionResult<GoodsReceiptResponseDto>> GetById(
         int id,
         CancellationToken cancellationToken)
@@ -40,6 +43,7 @@ public sealed class GoodsReceiptsController : ControllerBase
     }
 
     [HttpPost]
+    [HasPermission("ReceivingCreate")]
     public async Task<ActionResult<GoodsReceiptResponseDto>> Create(
         [FromBody] CreateGoodsReceiptDto request,
         CancellationToken cancellationToken)
@@ -53,6 +57,7 @@ public sealed class GoodsReceiptsController : ControllerBase
     }
 
     [HttpPost("{id:int}/submit")]
+    [HasPermission("ReceivingCreate")]
     public async Task<ActionResult<GoodsReceiptResponseDto>> Submit(
         int id,
         CancellationToken cancellationToken)
@@ -61,6 +66,7 @@ public sealed class GoodsReceiptsController : ControllerBase
     }
 
     [HttpPost("{id:int}/inspect")]
+    [HasPermission("ReceivingUpdate")]
     public async Task<ActionResult<GoodsReceiptResponseDto>> Inspect(
         int id,
         CancellationToken cancellationToken)
@@ -69,6 +75,7 @@ public sealed class GoodsReceiptsController : ControllerBase
     }
 
     [HttpPost("{id:int}/record-inspection-result")]
+    [HasPermission("ReceivingUpdate")]
     public async Task<ActionResult<GoodsReceiptResponseDto>> RecordInspectionResult(
         int id,
         CancellationToken cancellationToken)
@@ -78,6 +85,7 @@ public sealed class GoodsReceiptsController : ControllerBase
     }
 
     [HttpPost("{id:int}/cancel")]
+    [HasPermission("ReceivingUpdate")]
     public async Task<ActionResult<GoodsReceiptResponseDto>> Cancel(
         int id,
         CancellationToken cancellationToken)
@@ -86,6 +94,7 @@ public sealed class GoodsReceiptsController : ControllerBase
     }
 
     [HttpPost("{id:int}/post-to-inventory")]
+    [HasPermission("InventoryIssue")]
     public async Task<ActionResult<GoodsReceiptResponseDto>> PostToInventory(
     int id,
     CancellationToken cancellationToken)
