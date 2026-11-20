@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Authorization;
+using PIMS.API.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PIMS.Application.DTOs.Vendors;
 using PIMS.Application.Interfaces.Vendors;
@@ -19,6 +20,7 @@ public class VendorItemPriceController : ControllerBase
     }
 
     [HttpGet]
+    [HasPermission("VendorView")]
     public async Task<IActionResult> GetAll(
         int vendorId, CancellationToken cancellationToken)
     {
@@ -27,6 +29,7 @@ public class VendorItemPriceController : ControllerBase
     }
 
     [HttpGet("{priceId:int}")]
+    [HasPermission("VendorView")]
     public async Task<IActionResult> GetById(
         int vendorId, int priceId, CancellationToken cancellationToken)
     {
@@ -40,6 +43,7 @@ public class VendorItemPriceController : ControllerBase
     }
 
     [HttpPost]
+    [HasPermission("VendorUpdate")]
     public async Task<IActionResult> Create(
         int vendorId,
         [FromBody] CreateVendorItemPriceDto request,
@@ -58,6 +62,7 @@ public class VendorItemPriceController : ControllerBase
     }
 
     [HttpPut("{priceId:int}")]
+    [HasPermission("VendorUpdate")]
     public async Task<IActionResult> Update(
         int vendorId,
         int priceId,
@@ -74,6 +79,7 @@ public class VendorItemPriceController : ControllerBase
     }
 
     [HttpPatch("{priceId:int}/deactivate")]
+    [HasPermission("VendorUpdate")]
     public async Task<IActionResult> Deactivate(
         int vendorId, int priceId, CancellationToken cancellationToken)
     {
@@ -87,6 +93,7 @@ public class VendorItemPriceController : ControllerBase
     }
 
     [HttpPatch("{priceId:int}/activate")]
+    [HasPermission("VendorUpdate")]
     public async Task<IActionResult> Activate(
         int vendorId, int priceId, CancellationToken cancellationToken)
     {
