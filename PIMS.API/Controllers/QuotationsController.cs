@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Authorization;
+using PIMS.API.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PIMS.Application.DTOs.Procurement;
 using PIMS.Application.Interfaces.Procurement;
@@ -19,6 +20,7 @@ public sealed class QuotationsController : ControllerBase
     }
 
     [HttpPost]
+    [HasPermission("QuotationCreate")]
     public async Task<ActionResult<QuotationRequestResponseDto>> Create(
         CreateQuotationRequestDto request,
         CancellationToken cancellationToken)
@@ -33,6 +35,7 @@ public sealed class QuotationsController : ControllerBase
     }
 
     [HttpGet]
+    [HasPermission("QuotationView")]
     public async Task<ActionResult<List<QuotationRequestResponseDto>>> GetAll(
         CancellationToken cancellationToken)
     {
@@ -40,6 +43,7 @@ public sealed class QuotationsController : ControllerBase
     }
 
     [HttpGet("{id:int}")]
+    [HasPermission("QuotationView")]
     public async Task<ActionResult<QuotationRequestResponseDto>> GetById(
         int id,
         CancellationToken cancellationToken)
@@ -54,6 +58,7 @@ public sealed class QuotationsController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
+    [HasPermission("QuotationUpdate")]
     public async Task<ActionResult<QuotationRequestResponseDto>> Update(
         int id,
         UpdateQuotationRequestDto request,
@@ -64,6 +69,7 @@ public sealed class QuotationsController : ControllerBase
     }
 
     [HttpPost("{id:int}/send-to-vendors")]
+    [HasPermission("QuotationCreate")]
     public async Task<ActionResult<QuotationRequestResponseDto>> SendToVendors(
         int id,
         CancellationToken cancellationToken)
@@ -73,6 +79,7 @@ public sealed class QuotationsController : ControllerBase
     }
 
     [HttpPost("{id:int}/vendor-quotations")]
+    [HasPermission("QuotationUpdate")]
     public async Task<ActionResult<VendorQuotationResponseDto>> AddVendorQuotation(
         int id,
         CreateVendorQuotationDto request,
@@ -85,6 +92,7 @@ public sealed class QuotationsController : ControllerBase
     }
 
     [HttpPost("{id:int}/responses-received")]
+    [HasPermission("QuotationComparisonCreate")]
     public async Task<ActionResult<QuotationRequestResponseDto>> MarkResponsesReceived(
         int id,
         CancellationToken cancellationToken)
@@ -94,6 +102,7 @@ public sealed class QuotationsController : ControllerBase
     }
 
     [HttpPost("{id:int}/start-comparison")]
+    [HasPermission("QuotationComparisonCreate")]
     public async Task<ActionResult<QuotationRequestResponseDto>> StartComparison(
         int id,
         CancellationToken cancellationToken)
@@ -103,6 +112,7 @@ public sealed class QuotationsController : ControllerBase
     }
 
     [HttpGet("{id:int}/comparison")]
+    [HasPermission("QuotationComparisonView")]
     public async Task<ActionResult<List<QuotationComparisonItemDto>>> Compare(
         int id,
         CancellationToken cancellationToken)
@@ -112,6 +122,7 @@ public sealed class QuotationsController : ControllerBase
     }
 
     [HttpPost("{id:int}/vendor-quotations/{vendorQuotationId:int}/select")]
+    [HasPermission("QuotationComparisonApprove")]
     public async Task<ActionResult<QuotationRequestResponseDto>> SelectVendorQuotation(
         int id,
         int vendorQuotationId,
@@ -122,6 +133,7 @@ public sealed class QuotationsController : ControllerBase
     }
 
     [HttpPost("{id:int}/cancel")]
+    [HasPermission("QuotationUpdate")]
     public async Task<ActionResult<QuotationRequestResponseDto>> Cancel(
         int id,
         CancellationToken cancellationToken)

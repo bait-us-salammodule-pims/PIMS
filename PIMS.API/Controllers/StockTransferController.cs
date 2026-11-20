@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Authorization;
+using PIMS.API.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PIMS.Application.DTOs.Inventory;
 using PIMS.Application.Interfaces.Inventory;
@@ -19,6 +20,7 @@ public sealed class StockTransferController : ControllerBase
     }
 
     [HttpGet]
+    [HasPermission("InventoryView")]
     public async Task<IActionResult> GetAll(
         CancellationToken cancellationToken)
     {
@@ -27,6 +29,7 @@ public sealed class StockTransferController : ControllerBase
     }
 
     [HttpGet("{id:int}")]
+    [HasPermission("InventoryView")]
     public async Task<IActionResult> GetById(
         int id,
         CancellationToken cancellationToken)
@@ -41,6 +44,7 @@ public sealed class StockTransferController : ControllerBase
     }
 
     [HttpPost]
+    [HasPermission("InventoryTransfer")]
     public async Task<IActionResult> Create(
         [FromBody] CreateStockTransferDto request,
         CancellationToken cancellationToken)
@@ -55,6 +59,7 @@ public sealed class StockTransferController : ControllerBase
     }
 
     [HttpPost("{id:int}/submit")]
+    [HasPermission("InventoryTransfer")]
     public async Task<IActionResult> Submit(
         int id,
         CancellationToken cancellationToken)
@@ -68,6 +73,7 @@ public sealed class StockTransferController : ControllerBase
     public sealed record ApproveStockTransferDto(string ApprovedBy);
 
     [HttpPost("{id:int}/approve")]
+    [HasPermission("InventoryTransfer")]
     public async Task<IActionResult> Approve(
         int id,
         [FromBody] ApproveStockTransferDto request,
@@ -80,6 +86,7 @@ public sealed class StockTransferController : ControllerBase
     }
 
     [HttpPost("{id:int}/reject")]
+    [HasPermission("InventoryTransfer")]
     public async Task<IActionResult> Reject(
         int id,
         CancellationToken cancellationToken)
@@ -91,6 +98,7 @@ public sealed class StockTransferController : ControllerBase
     }
 
     [HttpPost("{id:int}/dispatch")]
+    [HasPermission("InventoryTransfer")]
     public async Task<IActionResult> Dispatch(
         int id,
         CancellationToken cancellationToken)
@@ -102,6 +110,7 @@ public sealed class StockTransferController : ControllerBase
     }
 
     [HttpPost("{id:int}/receive")]
+    [HasPermission("InventoryTransfer")]
     public async Task<IActionResult> Receive(
         int id,
         CancellationToken cancellationToken)
@@ -113,6 +122,7 @@ public sealed class StockTransferController : ControllerBase
     }
 
     [HttpPost("{id:int}/cancel")]
+    [HasPermission("InventoryTransfer")]
     public async Task<IActionResult> Cancel(
         int id,
         CancellationToken cancellationToken)
@@ -124,6 +134,7 @@ public sealed class StockTransferController : ControllerBase
     }
 
     [HttpPatch("{id:int}/notes")]
+    [HasPermission("InventoryTransfer")]
     public async Task<IActionResult> UpdateNotes(
         int id,
         [FromBody] UpdateStockTransferNotesDto request,

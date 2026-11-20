@@ -17,6 +17,7 @@ public sealed class UnitsOfMeasureController : ControllerBase
     }
 
     [HttpGet]
+    [HasPermission("ItemView")]
     public async Task<ActionResult<IReadOnlyList<UnitOfMeasureDto>>> GetAll(
         CancellationToken cancellationToken)
     {
@@ -25,6 +26,7 @@ public sealed class UnitsOfMeasureController : ControllerBase
     }
 
     [HttpGet("{id:int}")]
+    [HasPermission("ItemView")]
     public async Task<ActionResult<UnitOfMeasureDto>> GetById(
         int id,
         CancellationToken cancellationToken)
@@ -38,6 +40,7 @@ public sealed class UnitsOfMeasureController : ControllerBase
     }
 
     [HttpPost]
+    [HasPermission("ItemCreate")]
     public async Task<ActionResult<UnitOfMeasureDto>> Create(
         [FromBody] CreateUnitOfMeasureDto request,
         CancellationToken cancellationToken)
@@ -51,6 +54,7 @@ public sealed class UnitsOfMeasureController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
+    [HasPermission("ItemUpdate")]
     public async Task<ActionResult<UnitOfMeasureDto>> Update(
         int id,
         [FromBody] UpdateUnitOfMeasureDto request,
@@ -66,6 +70,7 @@ public sealed class UnitsOfMeasureController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
+    [HasPermission("ItemDeactivate")]
     public async Task<IActionResult> Delete(
         int id,
         CancellationToken cancellationToken)

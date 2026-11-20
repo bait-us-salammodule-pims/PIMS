@@ -152,6 +152,21 @@ public class QuotationRequest : BaseEntity
                 "Quotation closing date is required.");
         }
 
+        if (value.Kind == DateTimeKind.Unspecified)
+        {
+            value = DateTime.SpecifyKind(value, DateTimeKind.Utc);
+        }
+        else
+        {
+            value = value.ToUniversalTime();
+        }
+
+        if (value <= DateTime.UtcNow)
+        {
+            throw new ArgumentException(
+                "Quotation closing date must be in the future.");
+        }
+
         ClosingDate = value;
     }
 

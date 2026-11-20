@@ -16,6 +16,7 @@ public sealed class ItemPricingController : ControllerBase
     }
 
     [HttpGet]
+    [HasPermission("ItemView")]
     public async Task<ActionResult<IReadOnlyList<ItemPricingDto>>> GetAll(
         [FromQuery] int? itemId,
         CancellationToken cancellationToken)
@@ -28,6 +29,7 @@ public sealed class ItemPricingController : ControllerBase
     }
 
     [HttpGet("{id:int}")]
+    [HasPermission("ItemView")]
     public async Task<ActionResult<ItemPricingDto>> GetById(
         int id,
         CancellationToken cancellationToken)
@@ -48,6 +50,7 @@ public sealed class ItemPricingController : ControllerBase
     }
 
     [HttpPost]
+    [HasPermission("ItemCreate")]
     public async Task<ActionResult<ItemPricingDto>> Create(
         [FromBody] CreateItemPricingDto request,
         CancellationToken cancellationToken)
@@ -63,6 +66,7 @@ public sealed class ItemPricingController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
+    [HasPermission("ItemUpdate")]
     public async Task<ActionResult<ItemPricingDto>> Update(
         int id,
         [FromBody] UpdateItemPricingDto request,
@@ -85,6 +89,7 @@ public sealed class ItemPricingController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
+    [HasPermission("ItemDeactivate")]
     public async Task<IActionResult> Delete(
         int id,
         CancellationToken cancellationToken)

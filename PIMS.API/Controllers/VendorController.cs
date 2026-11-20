@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using PIMS.API.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PIMS.Application.DTOs.Vendors;
 using PIMS.Application.Interfaces.Vendors;
@@ -18,6 +19,7 @@ public class VendorController : ControllerBase
     }
 
     [HttpGet]
+    [HasPermission("VendorView")]
     public async Task<IActionResult> GetAll(
         CancellationToken cancellationToken)
     {
@@ -26,6 +28,7 @@ public class VendorController : ControllerBase
     }
 
     [HttpGet("{id:int}")]
+    [HasPermission("VendorView")]
     public async Task<IActionResult> GetById(
         int id,
         CancellationToken cancellationToken)
@@ -40,6 +43,7 @@ public class VendorController : ControllerBase
     }
 
     [HttpPost]
+    [HasPermission("VendorCreate")]
     public async Task<IActionResult> Create(
         [FromBody] CreateVendorDto request,
         CancellationToken cancellationToken)
@@ -54,6 +58,7 @@ public class VendorController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
+    [HasPermission("VendorUpdate")]
     public async Task<IActionResult> Update(
         int id,
         [FromBody] UpdateVendorDto request,
@@ -69,6 +74,7 @@ public class VendorController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
+    [HasPermission("VendorDeactivate")]
     public async Task<IActionResult> Delete(
         int id,
         CancellationToken cancellationToken)
@@ -83,6 +89,7 @@ public class VendorController : ControllerBase
     }
 
     [HttpPatch("{id:int}/activate")]
+    [HasPermission("VendorDeactivate")]
     public async Task<IActionResult> Activate(
     int id,
     CancellationToken cancellationToken)
@@ -97,6 +104,7 @@ public class VendorController : ControllerBase
     }
 
     [HttpPatch("{id:int}/approve")]
+    [HasPermission("ApprovalApprove")]
     public async Task<IActionResult> Approve(
     int id,
     CancellationToken cancellationToken)
@@ -111,6 +119,7 @@ public class VendorController : ControllerBase
     }
 
     [HttpPatch("{id:int}/block")]
+    [HasPermission("VendorDeactivate")]
     public async Task<IActionResult> Block(
         int id,
         CancellationToken cancellationToken)

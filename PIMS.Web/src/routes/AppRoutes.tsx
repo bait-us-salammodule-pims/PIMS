@@ -31,6 +31,10 @@ import { RolesPermissionsPage } from '../pages/users/RolesPermissionsPage';
 import { UserStoreAssignmentsPage } from '../pages/users/UserStoreAssignmentsPage';
 import { TabsAccessPage } from '../pages/users/TabsAccessPage';
 
+const permissionRoute = (permission: string, element: React.ReactElement) => (
+  <ProtectedRoute requiredPermission={permission}>{element}</ProtectedRoute>
+);
+
 export const AppRoutes: React.FC = () => {
   return (
     <Routes>
@@ -49,56 +53,56 @@ export const AppRoutes: React.FC = () => {
         <Route index element={<Navigate to="/dashboard" replace />} />
         
         {/* Dashboard */}
-        <Route path="dashboard" element={<DashboardPage />} />
+        <Route path="dashboard" element={permissionRoute('DashboardView', <DashboardPage />)} />
 
         {/* Procurement Module */}
         <Route path="procurement" element={<Navigate to="/procurement/requests" replace />} />
-        <Route path="procurement/requests" element={<PurchaseRequestsPage />} />
-        <Route path="procurement/quotations" element={<QuotationsPage />} />
-        <Route path="procurement/orders" element={<PurchaseOrdersPage />} />
+        <Route path="procurement/requests" element={permissionRoute('PurchaseRequestView', <PurchaseRequestsPage />)} />
+        <Route path="procurement/quotations" element={permissionRoute('QuotationView', <QuotationsPage />)} />
+        <Route path="procurement/orders" element={permissionRoute('PurchaseOrderView', <PurchaseOrdersPage />)} />
 
         {/* Receiving Module */}
         <Route path="receiving" element={<Navigate to="/receiving/goods-receipts" replace />} />
-        <Route path="receiving/goods-receipts" element={<GoodsReceiptsPage />} />
+        <Route path="receiving/goods-receipts" element={permissionRoute('ReceivingView', <GoodsReceiptsPage />)} />
 
         {/* Inventory Module */}
         <Route path="inventory" element={<Navigate to="/inventory/balances" replace />} />
-        <Route path="inventory/balances" element={<InventoryBalancesPage />} />
-        <Route path="inventory/movements" element={<StockMovementsPage />} />
-        <Route path="inventory/transfers" element={<StockTransfersPage />} />
+        <Route path="inventory/balances" element={permissionRoute('InventoryView', <InventoryBalancesPage />)} />
+        <Route path="inventory/movements" element={permissionRoute('InventoryView', <StockMovementsPage />)} />
+        <Route path="inventory/transfers" element={permissionRoute('InventoryTransfer', <StockTransfersPage />)} />
 
         {/* Stores Module */}
         <Route path="stores" element={<Navigate to="/stores/list" replace />} />
-        <Route path="stores/list" element={<StoresPage />} />
-        <Route path="stores/locations" element={<StoreLocationsPage />} />
+        <Route path="stores/list" element={permissionRoute('StoreView', <StoresPage />)} />
+        <Route path="stores/locations" element={permissionRoute('StoreView', <StoreLocationsPage />)} />
 
         {/* Items Module */}
         <Route path="items" element={<Navigate to="/items/catalog" replace />} />
-        <Route path="items/catalog" element={<ItemsMasterPage />} />
-        <Route path="items/categories" element={<ItemCategoriesPage />} />
-        <Route path="items/pricing" element={<ItemPricingPage />} />
-        <Route path="items/units" element={<UnitsOfMeasurePage />} />
-        <Route path="items/package-types" element={<PackageTypesPage />} />
+        <Route path="items/catalog" element={permissionRoute('ItemView', <ItemsMasterPage />)} />
+        <Route path="items/categories" element={permissionRoute('ItemView', <ItemCategoriesPage />)} />
+        <Route path="items/pricing" element={permissionRoute('ItemView', <ItemPricingPage />)} />
+        <Route path="items/units" element={permissionRoute('ItemView', <UnitsOfMeasurePage />)} />
+        <Route path="items/package-types" element={permissionRoute('ItemView', <PackageTypesPage />)} />
 
         {/* Vendors Module */}
         <Route path="vendors" element={<Navigate to="/vendors/directory" replace />} />
-        <Route path="vendors/directory" element={<VendorsDirectoryPage />} />
-        <Route path="vendors/contacts" element={<VendorContactsPage />} />
-        <Route path="vendors/pricing" element={<VendorItemPricingPage />} />
+        <Route path="vendors/directory" element={permissionRoute('VendorView', <VendorsDirectoryPage />)} />
+        <Route path="vendors/contacts" element={permissionRoute('VendorView', <VendorContactsPage />)} />
+        <Route path="vendors/pricing" element={permissionRoute('VendorView', <VendorItemPricingPage />)} />
 
         {/* Organization Module */}
         <Route path="organization" element={<Navigate to="/organization/branches" replace />} />
-        <Route path="organization/head-offices" element={<HeadOfficesPage />} />
-        <Route path="organization/branches" element={<BranchesPage />} />
-        <Route path="organization/departments" element={<DepartmentsPage />} />
-        <Route path="organization/sub-departments" element={<SubDepartmentsPage />} />
+        <Route path="organization/head-offices" element={permissionRoute('OrganizationView', <HeadOfficesPage />)} />
+        <Route path="organization/branches" element={permissionRoute('OrganizationView', <BranchesPage />)} />
+        <Route path="organization/departments" element={permissionRoute('OrganizationView', <DepartmentsPage />)} />
+        <Route path="organization/sub-departments" element={permissionRoute('OrganizationView', <SubDepartmentsPage />)} />
 
         {/* Users & Access Module */}
         <Route path="users" element={<Navigate to="/users/list" replace />} />
-        <Route path="users/list" element={<UsersListPage />} />
-        <Route path="users/roles" element={<RolesPermissionsPage />} />
-        <Route path="users/store-assignments" element={<UserStoreAssignmentsPage />} />
-        <Route path="users/tabs" element={<TabsAccessPage />} />
+        <Route path="users/list" element={permissionRoute('UserView', <UsersListPage />)} />
+        <Route path="users/roles" element={permissionRoute('RoleView', <RolesPermissionsPage />)} />
+        <Route path="users/store-assignments" element={permissionRoute('StoreManage', <UserStoreAssignmentsPage />)} />
+        <Route path="users/tabs" element={permissionRoute('SystemConfigurationView', <TabsAccessPage />)} />
 
         {/* Catch-all route within layout */}
         <Route path="*" element={<NotFoundPage />} />
