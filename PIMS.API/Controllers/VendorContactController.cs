@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using PIMS.API.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PIMS.Application.DTOs.Vendors;
 using PIMS.Application.Interfaces.Vendors;
@@ -19,6 +20,7 @@ public class VendorContactController : ControllerBase
     }
 
     [HttpGet]
+    [HasPermission("VendorView")]
     public async Task<IActionResult> GetAll(
         int vendorId,
         CancellationToken cancellationToken)
@@ -30,6 +32,7 @@ public class VendorContactController : ControllerBase
     }
 
     [HttpGet("{contactId:int}")]
+    [HasPermission("VendorView")]
     public async Task<IActionResult> GetById(
         int vendorId,
         int contactId,
@@ -45,6 +48,7 @@ public class VendorContactController : ControllerBase
     }
 
     [HttpPost]
+    [HasPermission("VendorUpdate")]
     public async Task<IActionResult> Create(
         int vendorId,
         [FromBody] CreateVendorContactDto request,
@@ -63,6 +67,7 @@ public class VendorContactController : ControllerBase
     }
 
     [HttpPut("{contactId:int}")]
+    [HasPermission("VendorUpdate")]
     public async Task<IActionResult> Update(
         int vendorId,
         int contactId,
@@ -79,6 +84,7 @@ public class VendorContactController : ControllerBase
     }
 
     [HttpPatch("{contactId:int}/deactivate")]
+    [HasPermission("VendorUpdate")]
     public async Task<IActionResult> Deactivate(
         int vendorId,
         int contactId,
@@ -94,6 +100,7 @@ public class VendorContactController : ControllerBase
     }
 
     [HttpPatch("{contactId:int}/activate")]
+    [HasPermission("VendorUpdate")]
     public async Task<IActionResult> Activate(
         int vendorId,
         int contactId,
