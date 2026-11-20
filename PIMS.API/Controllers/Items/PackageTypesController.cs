@@ -17,6 +17,7 @@ public sealed class PackageTypesController : ControllerBase
     }
 
     [HttpGet]
+    [HasPermission("ItemView")]
     public async Task<ActionResult<IReadOnlyList<PackageTypeDto>>> GetAll(
         CancellationToken cancellationToken)
     {
@@ -25,6 +26,7 @@ public sealed class PackageTypesController : ControllerBase
     }
 
     [HttpGet("{id:int}")]
+    [HasPermission("ItemView")]
     public async Task<ActionResult<PackageTypeDto>> GetById(
         int id,
         CancellationToken cancellationToken)
@@ -39,6 +41,7 @@ public sealed class PackageTypesController : ControllerBase
     }
 
     [HttpPost]
+    [HasPermission("ItemCreate")]
     public async Task<ActionResult<PackageTypeDto>> Create(
         [FromBody] CreatePackageTypeDto request,
         CancellationToken cancellationToken)
@@ -53,6 +56,7 @@ public sealed class PackageTypesController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
+    [HasPermission("ItemUpdate")]
     public async Task<ActionResult<PackageTypeDto>> Update(
         int id,
         [FromBody] UpdatePackageTypeDto request,
@@ -68,6 +72,7 @@ public sealed class PackageTypesController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
+    [HasPermission("ItemDeactivate")]
     public async Task<IActionResult> Delete(
         int id,
         CancellationToken cancellationToken)
