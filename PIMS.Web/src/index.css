@@ -1822,8 +1822,77 @@ input, select, textarea {
   }
 }
 
-Responsive polish & accessibility
-   ========================================================================== */
+
+/* Legacy/shared page aliases used by existing modules */
+.page-container {
+  width: 100%;
+  max-width: 1680px;
+  margin: 0 auto;
+  min-width: 0;
+}
+
+.page-header > :first-child {
+  min-width: 0;
+}
+
+.page-pretitle {
+  color: var(--blue-600);
+  font-size: 0.6875rem;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+
+.page-title {
+  color: var(--navy-950);
+  font-size: 1.75rem;
+  line-height: 1.2;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+}
+
+.page-description {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-top: 0.35rem;
+  max-width: 760px;
+}
+
+.page-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.empty-state-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+
+.empty-state-card .empty-state-icon {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.empty-state-card code {
+  color: var(--blue-600);
+  background: var(--blue-50);
+  border: 1px solid var(--blue-100);
+  border-radius: 5px;
+  padding: 0.1rem 0.3rem;
+}
+
+/* ==========================================================================\n   Responsive polish & accessibility\n   ========================================================================== */
 
 button:focus-visible,
 a:focus-visible,
