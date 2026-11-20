@@ -89,6 +89,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
               );
             }
 
+            // Hide a group completely when neither the group nor any child is accessible.
+            if (!hasAccess && accessibleChildren.length === 0) return null;
+
             // Accordion Item with Sub-Navigation
             return (
               <div key={item.id} className="nav-group-wrapper">
