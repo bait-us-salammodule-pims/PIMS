@@ -1584,3 +1584,180 @@ input, select, textarea {
   border: 1px solid #a7f3d0;
   color: #065f46;
 }
+
+
+/* ==========================================================================
+   Responsive polish & accessibility
+   ========================================================================== */
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--blue-500);
+  outline-offset: 2px;
+}
+
+button:disabled,
+.btn:disabled {
+  transform: none !important;
+}
+
+.table-responsive {
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 900px) {
+  .app-sidebar {
+    width: var(--sidebar-collapsed-width);
+  }
+
+  .app-sidebar:not(.collapsed) {
+    width: min(var(--sidebar-width), 86vw);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .app-main,
+  .app-main.sidebar-collapsed {
+    margin-left: var(--sidebar-collapsed-width);
+  }
+
+  .app-topnav {
+    padding: 0 1rem;
+  }
+
+  .topnav-left {
+    gap: 0.75rem;
+    min-width: 0;
+  }
+
+  .breadcrumbs {
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .topnav-right {
+    gap: 0.5rem;
+  }
+
+  .topnav-right > .badge {
+    display: none;
+  }
+
+  .user-info-text {
+    display: none;
+  }
+
+  .user-profile-menu {
+    padding: 0.25rem;
+    border: 0;
+  }
+
+  .app-content {
+    padding: 1.25rem;
+  }
+
+  .page-header-row {
+    align-items: flex-start;
+  }
+
+  .page-header-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .page-header-actions .btn {
+    flex: 1 1 auto;
+  }
+
+  .filter-controls-group {
+    width: 100%;
+  }
+
+  .search-input-wrapper {
+    min-width: min(100%, 260px);
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-item.full-width {
+    grid-column: auto;
+  }
+
+  .modal-backdrop {
+    padding: 0.75rem;
+  }
+
+  .modal-container,
+  .modal-container.modal-lg,
+  .modal-container.modal-sm {
+    max-width: 100%;
+    max-height: calc(100vh - 1.5rem);
+  }
+
+  .modal-header,
+  .modal-footer {
+    padding: 1rem;
+  }
+
+  .modal-body {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .app-content {
+    padding: 1rem 0.75rem;
+  }
+
+  .app-topnav {
+    height: 60px;
+  }
+
+  .app-main {
+    min-width: 0;
+  }
+
+  .page-main-title {
+    font-size: 1.25rem;
+  }
+
+  .page-header-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .page-header-actions .btn {
+    width: 100%;
+  }
+
+  .filter-card {
+    padding: 0.875rem;
+  }
+
+  .filter-controls-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-input-wrapper {
+    max-width: none;
+    width: 100%;
+  }
+
+  .data-table {
+    min-width: 680px;
+  }
+
+  .modal-footer {
+    flex-wrap: wrap;
+  }
+
+  .modal-footer .btn {
+    flex: 1 1 120px;
+  }
+}
