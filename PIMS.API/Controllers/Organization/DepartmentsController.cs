@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using PIMS.API.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PIMS.Application.DTOs.Organization;
 using PIMS.Application.Features.Organization;
@@ -18,6 +19,7 @@ public class DepartmentsController : ControllerBase
     }
 
     [HttpGet]
+    [HasPermission("OrganizationView")]
     public async Task<IActionResult> GetAll(
         [FromQuery] int? branchId = null,
         [FromQuery] bool includeInactive = false,
@@ -32,6 +34,7 @@ public class DepartmentsController : ControllerBase
     }
 
     [HttpGet("{id:int}")]
+    [HasPermission("OrganizationView")]
     public async Task<IActionResult> GetById(
         int id,
         CancellationToken cancellationToken = default)
@@ -52,6 +55,7 @@ public class DepartmentsController : ControllerBase
     }
 
     [HttpPost]
+    [HasPermission("OrganizationManage")]
     public async Task<IActionResult> Create(
         [FromBody] DepartmentDto dto,
         CancellationToken cancellationToken = default)
@@ -75,6 +79,7 @@ public class DepartmentsController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
+    [HasPermission("OrganizationManage")]
     public async Task<IActionResult> Update(
         int id,
         [FromBody] DepartmentDto dto,
@@ -105,6 +110,7 @@ public class DepartmentsController : ControllerBase
     }
 
     [HttpPatch("{id:int}/deactivate")]
+    [HasPermission("OrganizationManage")]
     public async Task<IActionResult> Deactivate(
         int id,
         CancellationToken cancellationToken = default)
@@ -133,6 +139,7 @@ public class DepartmentsController : ControllerBase
     }
 
     [HttpPatch("{id:int}/activate")]
+    [HasPermission("OrganizationManage")]
     public async Task<IActionResult> Activate(
         int id,
         CancellationToken cancellationToken = default)
